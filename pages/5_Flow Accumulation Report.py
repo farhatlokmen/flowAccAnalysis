@@ -123,11 +123,6 @@ try:
                         template = templateEnv.get_template( TEMPLATE_FILE )
                         export_as_pdf = st.button("Export Report")
                         if export_as_pdf:
-                            outputText = template.render(df=df2, timePeriod= 'from '+str(startDate)[:10]+' to '+str(endDate)[:10])
-                            file_name = os.path.join(app_path,'reports', "report.html")
-                            html_file = open(file_name, 'w', encoding='utf-8')
-                            html_file.write(outputText)
-                            html_file.close()                            
                             st.success("Report successfully downloaded!")    
             elif version == 'ICC':
                 valveNames_all = []
@@ -216,11 +211,6 @@ try:
                         template = templateEnv.get_template( TEMPLATE_FILE )
                         export_as_pdf = st.button("Export Report")
                         if export_as_pdf:
-                            outputText = template.render(df=df2, timePeriod= 'from '+str(startDate)[:10]+' to '+str(endDate)[:10])
-                            file_name = os.path.join(app_path,'reports', "report.html")
-                            html_file = open(file_name, 'w', encoding='utf-8')
-                            html_file.write(outputText)
-                            html_file.close()                            
                             st.success("Report successfully downloaded!") 
 except URLError as e:
     st.error(
