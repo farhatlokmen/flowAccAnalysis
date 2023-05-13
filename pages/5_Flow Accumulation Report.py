@@ -4,7 +4,6 @@ import numpy as np
 import altair as alt
 import jinja2 
 import os
-import tools
 from urllib.error import URLError
 
 st.set_page_config(page_title="Flow Accumulation Analysis", page_icon="🌊")
