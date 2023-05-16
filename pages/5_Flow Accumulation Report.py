@@ -148,28 +148,25 @@ try:
                             index_observed_time = index_observed[1] 
                             hours = int(observedFlow_DF.iat[index_observed_time, 18][11:13])
                             minutes = int(observedFlow_DF.iat[index_observed_time, 18][14:16])
-                            obs = float(observedFlow_DF.iat[index_observed_flow, 18])
+                            obsTF = 1000*float(observedFlow_DF.iat[index_observed_flow, 18])
                             if ((hours*60+minutes) != 0) & (flowsensor_systemError == "no"):                              
                                 time = hours*60+minutes
                                 Time.append(time)
                                 desTF = time*float(designedFlow_DF.iat[index_designed[0], 1])                                
-                                obsTF = time*obs                                
                                 valveNames.append(valve)
                                 dates.append(day)
                                 totalFlow_designed.append(desTF) 
                                 totalFlow_observed.append(obsTF)
                                 errorP.append(np.round(100*((obsTF-desTF)/desTF),2)) 
-                            elif ((hours*60+minutes) != 0) & (flowsensor_systemError == "yes"):
-                                if (obs!=0):
-                                    time = hours*60+minutes
-                                    Time.append(time)
-                                    desTF = time*float(designedFlow_DF.iat[index_designed[0], 1])                                
-                                    obsTF = time*obs
-                                    valveNames.append(valve)
-                                    dates.append(day)
-                                    totalFlow_designed.append(desTF) 
-                                    totalFlow_observed.append(obsTF)
-                                    errorP.append(np.round(100*((obsTF-desTF)/desTF),2)) 
+                            elif ((hours*60+minutes) != 0) & (flowsensor_systemError == "yes") & (obsTF!=0):
+                                time = hours*60+minutes
+                                Time.append(time)
+                                desTF = time*float(designedFlow_DF.iat[index_designed[0], 1])                                
+                                valveNames.append(valve)
+                                dates.append(day)
+                                totalFlow_designed.append(desTF) 
+                                totalFlow_observed.append(obsTF)
+                                errorP.append(np.round(100*((obsTF-desTF)/desTF),2)) 
                     df1 = pd.DataFrame({'valves': valveNames,
                                         'date': pd.to_datetime(dates),
                                         'Time':Time,
