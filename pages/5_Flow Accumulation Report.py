@@ -149,10 +149,11 @@ try:
                             hours = int(observedFlow_DF.iat[index_observed_time, 18][11:13])
                             minutes = int(observedFlow_DF.iat[index_observed_time, 18][14:16])
                             obsTF = 1000*float(observedFlow_DF.iat[index_observed_flow, 18])
-                            if ((hours*60+minutes) != 0) & (flowsensor_systemError == "no"):                              
+                            if ((hours*60+minutes) != 0) & (flowsensor_systemError == "no"): # Exclude out days with irrigation time being 0                                
                                 time = hours*60+minutes
                                 Time.append(time)
-                                desTF = time*float(designedFlow_DF.iat[index_designed[0], 1])                                
+                                desTF = time*float(designedFlow_DF.iat[index_designed[0], 1])   
+                                
                                 valveNames.append(valve)
                                 dates.append(day)
                                 totalFlow_designed.append(desTF) 
@@ -161,7 +162,8 @@ try:
                             elif ((hours*60+minutes) != 0) & (flowsensor_systemError == "yes") & (obsTF!=0):
                                 time = hours*60+minutes
                                 Time.append(time)
-                                desTF = time*float(designedFlow_DF.iat[index_designed[0], 1])                                
+                                desTF = time*float(designedFlow_DF.iat[index_designed[0], 1]) 
+
                                 valveNames.append(valve)
                                 dates.append(day)
                                 totalFlow_designed.append(desTF) 
