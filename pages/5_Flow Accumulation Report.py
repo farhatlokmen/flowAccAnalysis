@@ -3,7 +3,6 @@ import pandas as pd
 import numpy as np
 import altair as alt
 import numpy as np
-import pdfkit
 import jinja2 
 import os
 import tools
@@ -130,40 +129,7 @@ try:
                         st.map(designedFlow_DF[['lat','lon']].iloc[selected_indices], zoom=12)
                         
                         # export options
-                        pages_path = os.path.dirname(__file__)
-                        app_path = os.path.dirname(pages_path)
-                        
-                        path=os.path.join(app_path,'./templates')
-                        templateLoader = jinja2.FileSystemLoader(searchpath=path)
-                        templateEnv = jinja2.Environment(loader=templateLoader)
-                        TEMPLATE_FILE = "template.html"
-                        template = templateEnv.get_template( TEMPLATE_FILE )
-
-                        export_as_pdf = st.button("Export Report")
-
-                        if export_as_pdf:
-                            outputText = template.render(df=df2, timePeriod= 'from '+str(startDate)[:10]+' to '+str(endDate)[:10])
-                            file_name = os.path.join(app_path,'reports', "report.html")
-                            html_file = open(file_name, 'w', encoding='utf-8')
-                            html_file.write(outputText)
-                            html_file.close()
-
-                            file_name = os.path.join(app_path,'reports', "report.html")
-                            if os.path.isfile(file_name):         
-                                #read html code to string
-                                html_file = open(file_name, 'r', encoding='utf-8')
-                                source_code = html_file.read()                                 
-                                # write the page break
-                                source_code += '<div class="new-page"></div>'
-                            else:
-                                st.warning(f'{file_name} not found')
-
-                            path_wkhtmltopdf = r'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe'
-                            config = pdfkit.configuration(wkhtmltopdf=path_wkhtmltopdf)
-                            PDF_TARGET_FILE = os.path.join(app_path,'reports', "report.pdf")
-                            pdfkit.from_string(source_code, PDF_TARGET_FILE, configuration=config) 
-                            html_file.close()
-                            st.success("Report successfully downloaded!") 
+                         
             elif version == 'ICC':
                 valves = st.multiselect("Choose Irrigation Valve(s)", list(valvesID), [])                
                 if not valves:
@@ -238,41 +204,7 @@ try:
                         st.map(designedFlow_DF[['lat','lon']].iloc[selected_indices], zoom=12)
                         
                         # export options
-                        pages_path = os.path.dirname(__file__)
-                        app_path = os.path.dirname(pages_path)
-                        
-                        path=os.path.join(app_path,'./templates')
-                        templateLoader = jinja2.FileSystemLoader(searchpath=path)
-                        templateEnv = jinja2.Environment(loader=templateLoader)
-                        TEMPLATE_FILE = "template.html"
-                        template = templateEnv.get_template( TEMPLATE_FILE )
-
-                        export_as_pdf = st.button("Export Report")
-
-                        if export_as_pdf:
-                            outputText = template.render(df=df2, timePeriod= 'from '+str(startDate)[:10]+' to '+str(endDate)[:10])
-                            file_name = os.path.join(app_path,'reports', "report.html")
-                            html_file = open(file_name, 'w', encoding='utf-8')
-                            html_file.write(outputText)
-                            html_file.close()
-
-                            file_name = os.path.join(app_path,'reports', "report.html")
-                            if os.path.isfile(file_name):         
-                                #read html code to string
-                                html_file = open(file_name, 'r', encoding='utf-8')
-                                source_code = html_file.read() 
-                                
-                                # write the page break
-                                source_code += '<div class="new-page"></div>'
-                            else:
-                                st.warning(f'{file_name} not found')
-
-                            path_wkhtmltopdf = r'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe'
-                            config = pdfkit.configuration(wkhtmltopdf=path_wkhtmltopdf)
-                            PDF_TARGET_FILE = os.path.join(app_path,'reports', "report.pdf")
-                            pdfkit.from_string(source_code, PDF_TARGET_FILE, configuration=config) 
-                            html_file.close()
-                            st.success("Report successfully downloaded!")                    
+                                            
 
 except URLError as e:
     st.error(
