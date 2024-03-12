@@ -151,14 +151,10 @@ try:
                             hours = int(observedFlow_DF.iat[index_observed_time, 18][11:13])
                             minutes = int(observedFlow_DF.iat[index_observed_time, 18][14:16])
                             obsTF = 1000*float(observedFlow_DF.iat[index_observed_flow, 18])
-                            st.write(observedFlow_DF)
-
-
-
-                            
                             if ((hours*60+minutes) != 0) & (flowsensor_systemError == "no"):                                 
                                 time = hours*60+minutes
                                 Time.append(time)
+                                st.write(time)
                                 desTF = time*float(designedFlow_DF.iat[index_designed[0], 1]) 
                                 valveNames.append(valve)
                                 dates.append(day)
