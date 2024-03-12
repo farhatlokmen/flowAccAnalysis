@@ -154,7 +154,6 @@ try:
                             if ((hours*60+minutes) != 0) & (flowsensor_systemError == "no"):                                 
                                 time = hours*60+minutes
                                 Time.append(time)
-                                st.write(time)
                                 desTF = time*float(designedFlow_DF.iat[index_designed[0], 1]) 
                                 valveNames.append(valve)
                                 dates.append(day)
