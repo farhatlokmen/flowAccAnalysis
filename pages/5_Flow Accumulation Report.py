@@ -181,6 +181,8 @@ try:
                         startDate = pd.to_datetime(st.date_input('Start Date', df1[df1['valves'] == valves[0]]['date'].iloc[0]))
                         endDate = pd.to_datetime(st.date_input('End Date', df1[df1['valves'] == valves[0]]['date'].iloc[-1]))
                         df1_filtered1 = df1[(df1['date'] >= startDate) & (df1['date'] < endDate)] 
+                        st.write(df1_filtered1)
+                        
                         avgErrorP = []
                         n_obs = []            
                         for valve in valves:  
